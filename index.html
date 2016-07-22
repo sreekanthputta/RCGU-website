@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<title>Rotaract Club of GITAM University</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style1.css">
+<script src="/js/jquery-1.10.2.js"></script>
+<script> 
+$(function(){
+  $("#headerfile").load("/headerfile.html"); 
+  $("#footerfile").load("/footerfile.html"); 
+});
+</script> 
+
+<body>
+<div id="headerfile"></div>
+<br>
+
+<div class="container" style="z-index:100">
+
+
+
+<div class="w3-content" style="max-width:1300px;position:relative">
+
+<script>
+for(var i=1; i<18; i++){
+document.write("<img class=\"mySlides\" src=\"/images/s/%20("+i+").jpg\" style=\"width:100%\">")}
+</script>
+
+<a class="w3-btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)"><</a>
+<a class="w3-btn-floating" style="position:absolute;top:45%;right:0" onclick="plusDivs(1)">></a>
+
+</div>
+<br>
+<h1 style="text-align:center;"><strong>Featured Videos</strong></h1>
+
+<style>
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+
+<div class="w3-row" style="position:relative" >
+  <div class="w3-col s6  w3-center">
+    <div class="video-container" style="margin: 5%;">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/lTtMmLPyZKs?rel=0" frameborder="0" allowfullscreen></iframe>
+  </div>
+  
+  </div>
+  <div class="w3-col s6  w3-center">
+    <div class="video-container" style="margin: 5%;">
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/gXiDwjF0WOE?rel=0" frameborder="0" allowfullscreen></iframe>
+  </div>
+  </div>
+</div>
+</div>
+
+
+
+<br><br><br><br>
+
+
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+}
+</script>
+
+<div id="footerfile"></div>
+</body>
+</html>
+
