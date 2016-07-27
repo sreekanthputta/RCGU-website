@@ -71,6 +71,21 @@ for(var i=1; i<varieties2[idx].length; i++) {
     f.uterm.options[i]=new Option(varieties2[idx][i], varieties2[idx][i]); 
     }    
 }
+$(document).ready(function() {
+    $("input[type=number]").on("focus", function() {
+        $(this).on("keydown", function(event) {
+            if (event.keyCode === 38 || event.keyCode === 40) {
+                event.preventDefault();
+            }
+        });
+    });
+
+});
+
+function maxLengthCheck(object) {
+    if (object.value.length > object.maxLength)
+      object.value = object.value.slice(0, object.maxLength)
+  }
 </script>
 <?php
 
@@ -96,7 +111,7 @@ if(isset($_POST['btn-signup']))
 	$ublood = mysqli_real_escape_string($con, $_POST['ublood']);
 	$ubloodwilling = mysqli_real_escape_string($con, $_POST['ubloodwilling']);
 	
-if($requiredprogram === 0){
+if($requiredprogram == 0){
 	$ubranch = mysqli_real_escape_string($con, $_POST['ubranch']);
 }
 else{
@@ -122,24 +137,24 @@ else{
 	$ubloodwilling = trim($ubloodwilling);
 	
 	// email exist or not
-	$query = "SELECT `Email` FROM contact_information WHERE `Email`='$uemail'";
+	$query = "SELECT `Email` FROM registrations WHERE `Email`='$uemail'";
 	$result = mysqli_query($con, $query);	
 	$count = mysqli_num_rows($result); // if email not found then register
 	
 		if($count==0){
-	$query = "SELECT `Pin` FROM contact_information WHERE `Pin`='$upin'";
+	$query = "SELECT `Pin` FROM registrations WHERE `Pin`='$upin'";
 	$result = mysqli_query($con, $query);	
 	$count = mysqli_num_rows($result); // if email not found then register
 	
 	if($count==0){
-	$query = "SELECT `Phone` FROM contact_information WHERE `Phone`='$uphone'";
+	$query = "SELECT `Phone` FROM registrations WHERE `Phone`='$uphone'";
 	$result = mysqli_query($con, $query);	
 		$count = mysqli_num_rows($result); // if email not found then register
 		}}
 	
 	if($count == 0){
 		
-		if(mysqli_query($con, "INSERT INTO contact_information(`id`, `Name`, `Pin`, `Email`, `Phone`, `Gender`, `Date of Birth`, `Hostel`, `Local`, `Home Town`, `College`, `Branch`, `Year`, `Term`, `Section`, `Blood Group`, `Blood Donation Willingness`) VALUES(NULL, '$uname','$upin','$uemail','$uphone','$ugender','$udob','$uhostel','$ulocal','$uhometown','$ucollege','$ubranch','$uyear','$uterm','$usection','$ublood','$ubloodwilling')"))
+		if(mysqli_query($con, "INSERT INTO registrations(`id`, `Name`, `Pin`, `Email`, `Phone`, `Gender`, `Date of Birth`, `Hostel`, `Local`, `Home Town`, `College`, `Branch`, `Year`, `Term`, `Section`, `Blood Group`, `Blood Donation Willingness`) VALUES(NULL, '$uname','$upin','$uemail','$uphone','$ugender','$udob','$uhostel','$ulocal','$uhometown','$ucollege','$ubranch','$uyear','$uterm','$usection','$ublood','$ubloodwilling')"))
 		{
 		?><script>
 		document.getElementById("errormsg").innerHTML = "Successfully Registered";
@@ -175,11 +190,11 @@ input::-webkit-inner-spin-button {
 <div style="height:40px"><div style="float: left; width:25%;"><a>Full Name*</a></div>
 <div style="float: right; width:75%;"><input type="text" name="uname" placeholder="Full Name" required style="width:100%"/></div></div>
 <div style="height:40px"><div style="float: left; width:25%;"><a>College ID*</a></div>
-<div style="float: right; width:75%;"><input type="number" name="upin" placeholder="College ID" required style="width:100%"/></div></div>
+<div style="float: right; width:75%;"><input type="number" name="upin" placeholder="College ID" maxlength = "10" oninput="maxLengthCheck(this)" required style="width:100%"/></div></div>
 <div style="height:40px"><div style="float: left; width:25%;"><a>Email*</a></div>
 <div style="float: right; width:75%;"><input type="email" name="uemail" placeholder="Email" required style="width:100%"/></div></div>
 <div style="height:40px"><div style="float: left; width:25%;"><a>Phone Number*</a></div>
-<div style="float: right; width:75%;"><input type="number" name="uphone" placeholder="Phone Number" required style="width:100%"/></div></div>
+<div style="float: right; width:75%;"><input type="number" name="uphone" placeholder="Phone Number" maxlength = "10"  oninput="maxLengthCheck(this)" required style="width:100%"/></div></div>
 <div style="height:40px"><div style="float: left; width:25%;"><a>Gender*</a></div>
 <div style="float: right; width:75%;"><input type="radio" name="ugender" value="male" id="male" required>  <label for="male">Male</label>    <input type="radio" name="ugender" value="female" id="female">  <label for="female">Female</label></div></div>
 <div style="height:40px"><div style="float: left; width:25%;"><a>Date of Birth*</a></div>
